@@ -1,0 +1,60 @@
+﻿@page
+@model ECommerce2.Pages.OrderDetails.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>OrderDetail</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="OrderDetail.OrderDetail_OrderID" />
+            <div class="form-group">
+                <label asp-for="OrderDetail.OrderDetail_SalesOrderDetailID" class="control-label"></label>
+                <input asp-for="OrderDetail.OrderDetail_SalesOrderDetailID" class="form-control" />
+                <span asp-validation-for="OrderDetail.OrderDetail_SalesOrderDetailID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OrderDetail.ProductID" class="control-label"></label>
+                <input asp-for="OrderDetail.ProductID" class="form-control" />
+                <span asp-validation-for="OrderDetail.ProductID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OrderDetail.Tax" class="control-label"></label>
+                <input asp-for="OrderDetail.Tax" class="form-control" />
+                <span asp-validation-for="OrderDetail.Tax" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OrderDetail.SubTotal" class="control-label"></label>
+                <input asp-for="OrderDetail.SubTotal" class="form-control" />
+                <span asp-validation-for="OrderDetail.SubTotal" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OrderDetail.Quantity" class="control-label"></label>
+                <input asp-for="OrderDetail.Quantity" class="form-control" />
+                <span asp-validation-for="OrderDetail.Quantity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OrderDetail.TotalPrice" class="control-label"></label>
+                <input asp-for="OrderDetail.TotalPrice" class="form-control" />
+                <span asp-validation-for="OrderDetail.TotalPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

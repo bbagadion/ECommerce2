@@ -1,0 +1,66 @@
+﻿@page
+@model ECommerce2.Pages.Carts.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Cart[0].CartID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cart[0].ProdName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cart[0].Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cart[0].Subtotal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cart[0].Tax)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cart[0].TotalPrice)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Cart) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CartID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProdName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Subtotal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tax)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalPrice)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Cart_CustomerID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Cart_CustomerID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Cart_CustomerID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

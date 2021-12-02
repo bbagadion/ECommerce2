@@ -1,0 +1,55 @@
+﻿@page
+@model ECommerce2.Pages.Carts.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Cart</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Cart.CartID)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Cart.CartID)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Cart.ProdName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Cart.ProdName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Cart.Quantity)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Cart.Quantity)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Cart.Subtotal)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Cart.Subtotal)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Cart.Tax)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Cart.Tax)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Cart.TotalPrice)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Cart.TotalPrice)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Cart.Cart_CustomerID">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

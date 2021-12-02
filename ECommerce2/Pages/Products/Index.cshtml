@@ -1,0 +1,54 @@
+﻿@page
+@model ECommerce2.Pages.Products.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].Product_Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].Product_Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].Product_Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].Product_Photo)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Product) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product_Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product_Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product_Photo)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Product_ID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Product_ID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Product_ID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
