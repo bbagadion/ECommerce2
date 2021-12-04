@@ -1,5 +1,6 @@
 ﻿@page
 @model ECommerce2.Pages.MyCartModel
+@using ECommerce2.Models;
 @{
 }
 <!DOCTYPE html>
@@ -12,44 +13,77 @@
 <body>
 
     <h3>Cart</h3>
-    <form method="post" asp-page="cart" asp-page-handler="update">
-        <table border="1">
-            <tr>
-                <th>Action</th>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Photo</th>
-                <th>Price</th>
-                <th>Quantity </th>
-                <th>Sub Total</th>
-            </tr>
-            @if (Model.cart != null)
+    <table border="1">
+        <tr>
+            <th>Action</th>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Photo</th>
+            <th>Price</th>
+            <th>Quantity </th>
+            <th>Sub Total</th>
+        </tr>
+        @if (Model.cart != null)
+        {
+            @foreach (var item in Model.cart)
             {
-                @foreach (var item in Model.cart)
-                {
-                    <tr align="center">
-                        <td align="center">
-                            <a asp-page="cart" asp-page-handler="delete" asp-route-id="@item.Product.Product_ID">X</a>
-                        </td>
-                        <td>@item.Product.Product_ID</td>
-                        <td>@item.Product.Product_Name</td>
-                        <td><img src="~/images/@item.Product.Product_Photo" width="120" height="100" /></td>
-                        <td>$@item.Product.Product_ID</td>
-                        <td><input type="number" name="quantities" value="@item.Quantity" min="1" style="width: 50px;" /></td>
-                        <td>
-                            $@(item.Product.Product_Price * item.Quantity)
-                        </td>
-                    </tr>
-                }
+                <tr align="center">
+                    <td align="center">
+                        <a asp-page="cart" asp-page-handler="delete" asp-route-id="@item.Product.Product_ID">X</a>
+                    </td>
+                    <td>@item.Product.Product_ID</td>
+                    <td>@item.Product.Product_Name</td>
+                    <td><img src="~/images/@item.Product.Product_Photo" width="120" height="100" /></td>
+                    <td>$@item.Product.Product_ID</td>
+                    <td>@item.Quantity</td>
+                    <td>
+                        $@(item.Product.Product_Price * item.Quantity)
+                    </td>
+                </tr>
             }
-            <tr>
-                <td colspan="6" align="right">Total</td>
-                <td align="center">$@Model.Total</td>
-            </tr>
-        </table>
-        <input type="submit" value="To Checkout" />
+        }
+        <tr>
+            <td colspan="6" align="right">Total</td>
+            <td align="center">$@Model.Total</td>
+        </tr>
+    </table>
+    <form method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        @if (Model.cart != null)
+        {
+            @foreach (var item in Model.cart)
+            {
+                <div class="form-group">
+                    <input asp-for="OrderDetail.OrderDetail_SalesOrderDetailID" class="form-control" value=1 />
+                </div>
+                <div class="form-group">
+                    <input asp-for="OrderDetail.ProductID" class="form-control" value="@item.Product.Product_ID" />
+                </div>
+                double tax = item.Product.Product_Price * 0.06;
+                <div class="form-group">
+                    <input asp-for="OrderDetail.Tax" class="form-control" value=@tax />
+                </div>
+                <div class="form-group">
+                    <input asp-for="OrderDetail.SubTotal" class="form-control" value="@item.Product.Product_Price" />
+                </div>
+                <div class="form-group">
+                    <input asp-for="OrderDetail.Quantity" class="form-control" value=1 />
+                </div>
+                <div class="form-group">
+                    <input asp-for="OrderDetail.TotalPrice" class="form-control" value=@item.Product.Product_Price + tax />
+                </div>
+            }
+        }
+        <div class="form-group">
+            <input type="submit" value="Checkout" class="btn btn-primary" />
+        </div>
+
     </form>
     <a asp-page="index">Continue Shopping</a>
 
 </body>
 </html>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

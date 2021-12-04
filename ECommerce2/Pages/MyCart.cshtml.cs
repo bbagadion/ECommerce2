@@ -4,33 +4,52 @@ using System.Linq;
 using System.Threading.Tasks;
 using ECommerce2.Helpers;
 using ECommerce2.Models;
+using ECommerce2.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace ECommerce2.Pages
 {
+
     public class Item
     {
         public Product Product { get; set; }
 
         public int Quantity { get; set; }
+
+
     }
     public class MyCartModel : PageModel
     {
+        private readonly ECommerce2.Data.ApplicationDbContext _context;
+        private readonly ECommerce2.Data.ApplicationDbContext _context2;
+
+        public MyCartModel(ECommerce2.Data.ApplicationDbContext context, ECommerce2.Data.ApplicationDbContext context2)
+        {
+            _context = context;
+            _context2 = context2;
+
+        }
         public List<Item> cart { get; set; }
         public double Total { get; set; }
 
         public void OnGet()
         {
-            try { 
-            cart = SessionHelper.GetObjectFromJson<List<Item>>(HttpContext.Session, "cart");
-            Total = cart.Sum(i => i.Product.Product_Price * i.Quantity);
+            try
+            {
+                cart = SessionHelper.GetObjectFromJson<List<Item>>(HttpContext.Session, "cart");
+                Total = cart.Sum(i => i.Product.Product_Price * i.Quantity);
             }
             catch (ArgumentNullException)
             {
                 RedirectToPage("EmptyCart");
             }
         }
+
+        [BindProperty]
+        public OrderHeader OrderHeader { get; set; }
+        [BindProperty]
+        public OrderDetail OrderDetail { get; set; }
 
         public IActionResult OnGetBuyNow(int id)
         {
@@ -75,16 +94,6 @@ namespace ECommerce2.Pages
             return RedirectToPage("MyCart");
         }
 
-        public IActionResult OnPostUpdate(int[] quantities)
-        {
-            cart = SessionHelper.GetObjectFromJson<List<Item>>(HttpContext.Session, "cart");
-            for (var i = 0; i < cart.Count; i++)
-            {
-                cart[i].Quantity = quantities[i];
-            }
-            SessionHelper.SetObjectAsJson(HttpContext.Session, "cart", cart);
-            return RedirectToPage("MyCart");
-        }
 
         private int Exists(List<Item> cart, string id)
         {
@@ -97,5 +106,23 @@ namespace ECommerce2.Pages
             }
             return -1;
         }
+
+        public async Task<IActionResult> OnPostAsync()
+        {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
+            _context.OrderHeader.Add(OrderHeader);
+            await _context.SaveChangesAsync();
+            _context2.OrderDetail.Add(OrderDetail);
+            await _context2.SaveChangesAsync();
+
+            return RedirectToPage("/OrderDetails/Index");
+        }
     }
 }
+
+
+
