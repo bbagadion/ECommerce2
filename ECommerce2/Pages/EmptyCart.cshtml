@@ -1,0 +1,12 @@
+﻿@page
+@model ECommerce2.Pages.EmptyCartModel
+@{
+    <h1> Oops!</h1>
+    <h2>Your cart is empty.Check out our delicious fruits!</h2>
+    <form asp-controller="Home"
+          asp-action="Index" method="post">
+        <input type="hidden"
+               name="guid" value="@Guid.NewGuid()" />
+        <button type="submit">Submit</button>
+    </form>
+}

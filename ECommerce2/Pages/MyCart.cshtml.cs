@@ -22,8 +22,14 @@ namespace ECommerce2.Pages
 
         public void OnGet()
         {
+            try { 
             cart = SessionHelper.GetObjectFromJson<List<Item>>(HttpContext.Session, "cart");
             Total = cart.Sum(i => i.Product.Product_Price * i.Quantity);
+            }
+            catch (ArgumentNullException)
+            {
+                RedirectToPage("EmptyCart");
+            }
         }
 
         public IActionResult OnGetBuyNow(int id)

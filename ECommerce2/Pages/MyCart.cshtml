@@ -7,7 +7,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Cart</title>
+    <title>MyCart</title>
 </head>
 <body>
 
@@ -20,30 +20,34 @@
                 <th>Name</th>
                 <th>Photo</th>
                 <th>Price</th>
-                <th>Quantity <input type="submit" value="Update" /></th>
+                <th>Quantity </th>
                 <th>Sub Total</th>
             </tr>
-            @foreach (var item in Model.cart)
+            @if (Model.cart != null)
             {
-                <tr align="center">
-                    <td align="center">
-                        <a asp-page="cart" asp-page-handler="delete" asp-route-id="@item.Product.Product_ID">X</a>
-                    </td>
-                    <td>@item.Product.Product_ID</td>
-                    <td>@item.Product.Product_Name</td>
-                    <td><img src="~/images/@item.Product.Product_Photo" width="120" height="100" /></td>
-                    <td>$@item.Product.Product_ID</td>
-                    <td><input type="number" name="quantities" value="@item.Quantity" min="1" style="width: 50px;" /></td>
-                    <td>
-                        $@(item.Product.Product_Price * item.Quantity)
-                    </td>
-                </tr>
+                @foreach (var item in Model.cart)
+                {
+                    <tr align="center">
+                        <td align="center">
+                            <a asp-page="cart" asp-page-handler="delete" asp-route-id="@item.Product.Product_ID">X</a>
+                        </td>
+                        <td>@item.Product.Product_ID</td>
+                        <td>@item.Product.Product_Name</td>
+                        <td><img src="~/images/@item.Product.Product_Photo" width="120" height="100" /></td>
+                        <td>$@item.Product.Product_ID</td>
+                        <td><input type="number" name="quantities" value="@item.Quantity" min="1" style="width: 50px;" /></td>
+                        <td>
+                            $@(item.Product.Product_Price * item.Quantity)
+                        </td>
+                    </tr>
+                }
             }
             <tr>
                 <td colspan="6" align="right">Total</td>
                 <td align="center">$@Model.Total</td>
             </tr>
         </table>
+        <input type="submit" value="To Checkout" />
     </form>
     <a asp-page="index">Continue Shopping</a>
 
