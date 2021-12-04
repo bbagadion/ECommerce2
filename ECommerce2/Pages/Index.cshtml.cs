@@ -32,8 +32,8 @@ namespace ECommerce2.Pages
             return Page();
         }
 
-        [BindProperty]
-        public Cart Cart{ get; set; }
+        
+        
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
@@ -43,8 +43,7 @@ namespace ECommerce2.Pages
                 return Page();
             }
 
-            _context.Cart.Add(Cart);
-            await _context.SaveChangesAsync();
+           
 
             return RedirectToPage("./Index");
         }
