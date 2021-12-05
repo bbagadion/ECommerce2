@@ -11,29 +11,30 @@
     <h1 class="display-4">Welcome to the DBD ECommerce Store</h1>
     <p>Take a look at our delicious fruits</p>
 </div>
-@foreach (var product in Model.featuredProducts)
-{
-    Product p = (Product)product;
-    int q = 0;
+<div class="card-deck">
+    @foreach (var product in Model.featuredProducts)
+    {
+        Product p = (Product)product;
+        int q = 0;
 
-<form method="post">
-    <div class="card-group">
-        <div class="card">
-            <img src="~/Images/@p.Product_Photo" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">@p.Product_Name</h5>
-                <p class="card-text">@p.Product_Price</p>
-                <input type="number" class="form-control" value=int q />
-                <p class="card-text">@p.Product_Description</p>
-                <div class="form-group">
-                    <a asp-page="MyCart" asp-page-handler="buynow" asp-route-id="@product.Product_ID">Buy Now</a>
+        <form method="post">
+            <div class="card" style="width: 18rem;">
+                <img src="~/Images/@p.Product_Photo" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">@p.Product_Name</h5>
+                    <p class="card-text">$@p.Product_Price</p>
+                    <input type="number" class="form-control" value=int q />
+                    <p class="card-text">@p.Product_Description</p>
+                    <div class="form-group">
+                        <a asp-page="MyCart" asp-page-handler="buynow" asp-route-id="@product.Product_ID">Buy Now</a>
+                    </div>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
                 </div>
             </div>
-        </div>
+        </form>
+    }
+</div>
 
-    </div>
-</form>
-        }
 
         @section Scripts {
             @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

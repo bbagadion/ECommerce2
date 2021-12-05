@@ -29,7 +29,7 @@
             {
                 <tr align="center">
                     <td align="center">
-                        <a asp-page="cart" asp-page-handler="delete" asp-route-id="@item.Product.Product_ID">X</a>
+                        <a asp-page="cart" asp-page-handler="delete" asp-route-id="@item.Product.Product_ID" action="">X</a>
                     </td>
                     <td>@item.Product.Product_ID</td>
                     <td>@item.Product.Product_Name</td>
@@ -40,6 +40,7 @@
                         $@(item.Product.Product_Price * item.Quantity)
                     </td>
                 </tr>
+                
             }
         }
         <tr>
@@ -79,8 +80,9 @@
         </div>
 
     </form>
+    <a asp-page="MyCart">Remove all from cart</a>
     <a asp-page="index">Continue Shopping</a>
-
+ 
 </body>
 </html>
 
