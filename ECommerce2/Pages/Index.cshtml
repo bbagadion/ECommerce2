@@ -1,6 +1,8 @@
 ﻿@page
 @model IndexModel
 @using ECommerce2.Models;
+@using static Pages.MyCartModel;
+@using System;
 @{
     ViewData["Title"] = "Home page";
 }
@@ -15,7 +17,6 @@
     @foreach (var product in Model.featuredProducts)
     {
         Product p = (Product)product;
-        int q = 0;
 
         <form method="post">
             <div class="card" style="width: 18rem;">
@@ -26,9 +27,8 @@
                     <input type="number" class="form-control" value=int q />
                     <p class="card-text">@p.Product_Description</p>
                     <div class="form-group">
-                        <a asp-page="MyCart" asp-page-handler="buynow" asp-route-id="@product.Product_ID">Buy Now</a>
+                        <a asp-page="MyCart" asp-page-handler="buynow" asp-route-id="@product.Product_ID" action="">Add to cart</a>
                     </div>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
                 </div>
             </div>
         </form>

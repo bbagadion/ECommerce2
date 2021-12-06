@@ -73,14 +73,15 @@
                 <div class="form-group">
                     <input asp-for="OrderDetail.TotalPrice" class="form-control" value=@item.Product.Product_Price + tax />
                 </div>
-            }
-        }
+            }       
+         }
         <div class="form-group">
             <input type="submit" value="Checkout" class="btn btn-primary" />
         </div>
 
     </form>
-    <a asp-page="MyCart">Remove all from cart</a>
+
+
     <a asp-page="index">Continue Shopping</a>
  
 </body>
