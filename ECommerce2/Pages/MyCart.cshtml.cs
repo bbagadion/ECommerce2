@@ -51,6 +51,8 @@ namespace ECommerce2.Pages
         [BindProperty]
         public OrderDetail OrderDetail { get; set; }
 
+
+
         public IActionResult OnGetBuyNow(int id)
         {
             var productModel = new ProductModel();
@@ -119,7 +121,7 @@ namespace ECommerce2.Pages
             _context2.OrderDetail.Add(OrderDetail);
             await _context2.SaveChangesAsync();
 
-            return RedirectToPage("/OrderDetails/Index");
+            return RedirectToPage("/Checkout");
         }
     }
 }

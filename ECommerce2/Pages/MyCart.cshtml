@@ -15,7 +15,7 @@
     <h3>Cart</h3>
     <table border="1">
         <tr>
-            <th>Action</th>
+            <th>Remove From Cart</th>
             <th>Id</th>
             <th>Name</th>
             <th>Photo</th>
@@ -40,7 +40,7 @@
                         $@(item.Product.Product_Price * item.Quantity)
                     </td>
                 </tr>
-                
+
             }
         }
         <tr>
@@ -55,35 +55,36 @@
             @foreach (var item in Model.cart)
             {
                 <div class="form-group">
-                    <input asp-for="OrderDetail.OrderDetail_SalesOrderDetailID" class="form-control" value=1 />
+                    <input type="hidden" asp-for="OrderDetail.OrderDetail_SalesOrderDetailID" class="form-control" value=1 />
                 </div>
                 <div class="form-group">
-                    <input asp-for="OrderDetail.ProductID" class="form-control" value="@item.Product.Product_ID" />
+                    <input type="hidden" asp-for="OrderDetail.ProductID" class="form-control" value="@item.Product.Product_ID" />
                 </div>
                 double tax = item.Product.Product_Price * 0.06;
                 <div class="form-group">
-                    <input asp-for="OrderDetail.Tax" class="form-control" value=@tax />
+                    <input type="hidden" asp-for="OrderDetail.Tax" class="form-control" value=@tax />
                 </div>
                 <div class="form-group">
-                    <input asp-for="OrderDetail.SubTotal" class="form-control" value="@item.Product.Product_Price" />
+                    <input type="hidden" asp-for="OrderDetail.SubTotal" class="form-control" value="@item.Product.Product_Price" />
                 </div>
                 <div class="form-group">
-                    <input asp-for="OrderDetail.Quantity" class="form-control" value=1 />
+                    <input type="hidden" asp-for="OrderDetail.Quantity" class="form-control" value=1 />
                 </div>
                 <div class="form-group">
-                    <input asp-for="OrderDetail.TotalPrice" class="form-control" value=@item.Product.Product_Price + tax />
+                    <input type="hidden" asp-for="OrderDetail.TotalPrice" class="form-control" value=@item.Product.Product_Price + tax />
                 </div>
-            }       
-         }
-        <div class="form-group">
-            <input type="submit" value="Checkout" class="btn btn-primary" />
-        </div>
+            }
+            <div class="form-group">
+                <input type="submit" value="Checkout" class="btn btn-primary" />
+            </div>
+        }
 
     </form>
+    
 
 
     <a asp-page="index">Continue Shopping</a>
- 
+
 </body>
 </html>
 
